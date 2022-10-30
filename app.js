@@ -1,5 +1,9 @@
 
         document.addEventListener('DOMContentLoaded', () => {
+           
+            
+
+
           // Variables
           const baseDeDatos = [
               {
@@ -37,7 +41,19 @@
           const DOMbotonVaciar = document.querySelector('#boton-vaciar');
 
           // Funciones
+        
 
+    carrito=  JSON.parse(localStorage.getItem("producto")) || [];
+            
+   
+
+
+    
+          
+           
+     
+
+        
           /**
           * Dibuja todos los productos a partir de la base de datos. No confundir con el carrito
           */
@@ -75,19 +91,23 @@
                   miNodo.appendChild(miNodoCardBody);
                   DOMitems.appendChild(miNodo);
               });
+
+           
           }
 
-          /**
-          * Evento para añadir un producto al carrito de la compra
-          */
           function anyadirProductoAlCarrito(evento) {
               // Anyadimos el Nodo a nuestro carrito
               carrito.push(evento.target.getAttribute('marcador'))
               // Actualizamos el carrito 
+
               renderizarCarrito();
+              
+            
+           
 
           }
-
+          
+         
           /**
           * Dibuja todos los productos guardados en el carrito
           */
@@ -123,10 +143,19 @@
                   // Mezclamos nodos
                   miNodo.appendChild(miBoton);
                   DOMcarrito.appendChild(miNodo);
-              });
-             // Renderizamos el precio total en el HTML
-             DOMtotal.textContent = calcularTotal();
+                 sincronizarLocalStorage(); 
+                });
+              
+                // Renderizamos el precio total en el HTML
+                DOMtotal.textContent = calcularTotal();
+              
           }
+
+          
+// nuevo
+function sincronizarLocalStorage(){
+    localStorage.setItem('producto', JSON.stringify(carrito));
+}
 
           /**
           * Evento para borrar un elemento del carrito
@@ -140,8 +169,8 @@
               });
               // volvemos a renderizar
               renderizarCarrito();
-          }
-
+          };
+       
           /**
            * Calcula el precio total teniendo en cuenta los productos repetidos
            */
@@ -157,6 +186,7 @@
               }, 0).toFixed(2);
           }
 
+         
           /**
           * Varia el carrito y vuelve a dibujarlo
           */
@@ -166,12 +196,15 @@
               // Renderizamos los cambios
               renderizarCarrito();
           }
-
+         
           // Eventos
           DOMbotonVaciar.addEventListener('click', vaciarCarrito);
 
           // Inicio
           renderizarProductos();
           renderizarCarrito();
+          
+         
         });
+ 
   
