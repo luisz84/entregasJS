@@ -199,7 +199,7 @@ function sincronizarLocalStorage(){
          
           // Eventos
           DOMbotonVaciar.addEventListener('click', vaciarCarrito);
-
+        
           // Inicio
           renderizarProductos();
           renderizarCarrito();
